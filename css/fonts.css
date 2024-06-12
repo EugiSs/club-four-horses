@@ -1,0 +1,45 @@
+/* GolosText */
+@font-face {
+	font-family: "GolosText";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/GolosText/GolosText-Regular.woff2") format("woff2"),
+		url("../fonts/GolosText/GolosText-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: "GolosText";
+	font-style: normal;
+	font-weight: 500;
+	src: url("../fonts/GolosText/GolosText-Medium.woff2") format("woff2"),
+		url("../fonts/GolosText/GolosText-Medium.woff") format("woff");
+}
+@font-face {
+	font-family: "GolosText";
+	font-style: normal;
+	font-weight: 600;
+	src: url("../fonts/GolosText/GolosText-SemiBold.woff2") format("woff2"),
+		url("../fonts/GolosText/GolosText-SemiBold.woff") format("woff");
+}
+@font-face {
+	font-family: "GolosText";
+	font-style: normal;
+	font-weight: 700;
+	src: url("../fonts/GolosText/GolosText-Bold.woff2") format("woff2"),
+		url("../fonts/GolosText/GolosText-Bold.woff") format("woff");
+}
+
+/* Merriweather */
+@font-face {
+	font-family: "Merriweather";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/Merriweather/Merriweather-Regular.woff2") format("woff2"),
+		url("../fonts/Merriweather/Merriweather-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Merriweather";
+	font-style: normal;
+	font-weight: 700;
+	src: url("../fonts/Merriweather/Merriweather-Bold.woff2") format("woff2"),
+		url("../fonts/Merriweather/Merriweather-Bold.woff") format("woff");
+}
