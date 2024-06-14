@@ -82,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function checkSliderBounds(slider, selector) {
+    document.querySelector(`${selector} .arrow_right:disabled`)?.removeAttribute('disabled')
+    document.querySelector(`${selector} .arrow_left:disabled`)?.removeAttribute('disabled')
     if (slider.currentSlide === 0) {
       document.querySelector(`${selector} .arrow_left`).setAttribute('disabled', "")
       return
@@ -90,8 +92,30 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(`${selector} .arrow_right`).setAttribute('disabled', "")
       return
     }
-    document.querySelector(`${selector} .arrow_right:disabled`)?.removeAttribute('disabled')
-    document.querySelector(`${selector} .arrow_left:disabled`)?.removeAttribute('disabled')
+  }
+
+  // Slider touch
+  let x1;
+  function touchStart(e) {
+    x1 = e.touches[0].clientX;
+  }
+
+  function touchMove(e, slider) {
+    if (!x1) return;
+
+    let x2 = e.changedTouches[0].clientX;
+    let xDiffValues = x2 - x1
+
+    if (Math.abs(xDiffValues) > 30) {
+      if (xDiffValues < 0) {
+        slider.currentSlide++
+      } else {
+        slider.currentSlide--
+      }
+      updateSlider(slider);
+    }
+
+    x1 = null
   }
 
   // Slider stages
@@ -112,7 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   stagesArrows.forEach((arrow) => {
     arrow.addEventListener("click", (e) => {
-      changeSlide(e, stagesSlider), changeActiveDot(stagesPagination, stagesSlider.currentSlide);
+      changeSlide(e, stagesSlider);
+      changeActiveDot(stagesPagination, stagesSlider.currentSlide);
       checkSliderBounds(stagesSlider, ".stages");
     })
   });
@@ -126,6 +151,16 @@ document.addEventListener("DOMContentLoaded", () => {
       stagesSlider.wrapper.style.transform = `translateX(-${dotIndex * 100}%)`;
       changeActiveDot(stagesPagination, dotIndex);
     }
+  })
+
+  stagesSlider.wrapper.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    touchStart(e);
+  });
+  stagesSlider.wrapper.addEventListener("touchend", (e) => {
+    touchMove(e, stagesSlider);
+    changeActiveDot(stagesPagination, stagesSlider.currentSlide);
+    checkSliderBounds(stagesSlider, ".stages");
   })
 
   // Slider members
@@ -148,9 +183,33 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   });
 
-  setInterval(() => {
+  let autoPlay = setInterval(() => {
     changeSlide(null, membersSlider), setSliderCounterText("#members-current", membersSlider)
   }, 4000);
+
+  // останавливаем автоплей слайдера при наведении на него
+  membersSlider.wrapper.addEventListener("mouseover", () => clearInterval(autoPlay));
+  // когда курсор уходит со слайдера, возобновляем автоплей
+  membersSlider.wrapper.addEventListener("mouseout", () => {
+    autoPlay = setInterval(() => {
+      changeSlide(null, membersSlider);
+      setSliderCounterText("#members-current", membersSlider)
+    }, 4000);
+  });
+
+  membersSlider.wrapper.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    clearInterval(autoPlay);
+    touchStart(e);
+  });
+  membersSlider.wrapper.addEventListener("touchend", (e) => {
+    autoPlay = setInterval(() => {
+      changeSlide(null, membersSlider);
+      setSliderCounterText("#members-current", membersSlider)
+    }, 4000);
+    touchMove(e, membersSlider);
+    setSliderCounterText("#members-current", membersSlider);
+  })
 
   window.addEventListener('resize', () => {
     if (calcSlidesPerView(membersSlider.totalSlides) !== membersSlider.slidesPerView) {
@@ -167,5 +226,4 @@ document.addEventListener("DOMContentLoaded", () => {
       createSliderDots(stagesPagination, stagesSlider.totalSlides);
     }
   });
-
 })
