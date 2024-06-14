@@ -109,11 +109,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let x2 = e.changedTouches[0].clientX;
     let xDiffValues = x2 - x1
 
+    // проверяем зацикленный ли слайдер, если нет, то запрещаем переход между 1 и последним слайдами
+    if (xDiffValues > 0 && slider.currentSlide === 0 && !slider.loop) return
+    if (xDiffValues < 0 && slider.currentSlide === slider.totalSlides - 1 && !slider.loop) return
+
     if (Math.abs(xDiffValues) > 30) {
       if (xDiffValues < 0) {
         slider.currentSlide++
       } else {
         slider.currentSlide--
+        if (slider.currentSlide === slider.totalSlides - 1 && !slider.loop) {
+          slider.currentSlide++
+        }
       }
       updateSlider(slider);
     }
@@ -127,7 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const stagesSlider = {
     wrapper: document.querySelector(".stages__items-wrapper"),
     slidesPerView: 1,
-    currentSlide: 0
+    currentSlide: 0,
+    loop: false
   };
 
   function getGridColumnsCount(element) {
@@ -170,10 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const memberSlides = document.querySelectorAll(".member");
   const memberArrows = document.querySelectorAll(".member__arrow");
   const membersSlider = {
+    wrapper: document.querySelector(".members__items"),
     totalSlides: memberSlides.length,
     slidesPerView: calcSlidesPerView(memberSlides.length),
     currentSlide: 0,
-    wrapper: document.querySelector(".members__items")
+    loop: true
   };
 
   document.querySelector("#members-total").textContent = memberSlides.length;
