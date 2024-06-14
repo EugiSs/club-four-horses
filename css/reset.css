@@ -11,7 +11,12 @@
 	/* vars */
 	--mainFont: "GolosText", sans-serif;
 	--secondaryFont: "Merriweather", sans-serif;
-	--mainText: #313131;
+	--mainTextColor: #313131;
+  --black: #1f1f1f;
+	--yellow: #fbce51;
+  --red: #f54932;
+  --beige: #e9ded4;
+  --blue: #3057a2;
 }
 html,
 body {
@@ -22,7 +27,11 @@ body {
 	font-family: var(--mainFont);
 	font-size: 18px;
 	line-height: 120%;
-	color: var(--mainText);
+	color: var(--mainTextColor);
+}
+body *::selection {
+	color: var(--mainTextColor);
+	background-color: var(--yellow);
 }
 a,
 a:visited {
