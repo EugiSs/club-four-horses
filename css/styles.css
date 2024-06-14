@@ -135,19 +135,6 @@ h3 {
 	background-color: var(--beige);
 	padding-top: 90px;
 }
-.hero::before {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: auto;
-	bottom: 0;
-	left: 0;
-	right: auto;
-	background-image: url("../img/hero_mobile.webp");
-	background-repeat: no-repeat;
-	background-position: 80.5% 100%;
-}
 .hero::after {
 	content: "";
 	position: absolute;
@@ -160,7 +147,7 @@ h3 {
 	background-image: url("../img/hero-bg_mobile.webp");
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 100%;
+	background-size: cover;
 	mix-blend-mode: color-burn;
 }
 .hero__container {
@@ -259,17 +246,21 @@ h3 {
 	background-size: 100%;
 	z-index: 3;
 }
+.hero__img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	bottom: auto;
+	left: 0;
+	right: auto;
+	background-image: url("../img/hero_mobile.webp");
+	background-repeat: no-repeat;
+	background-position: 80.5% 100%;
+}
 @media (min-width: 767.98px) {
-	.hero::before {
-		height: 85%;
-		background-image: url("../img/hero_desktop.webp");
-		background-size: cover;
-		background-position: 28% 100%;
-	}
 	.hero::after {
 		background-image: url("../img/hero-bg_desktop.webp");
-		background-size: cover;
-		background-position: center;
 	}
 	.hero__container {
 		padding-bottom: 130px;
@@ -283,15 +274,15 @@ h3 {
 	.hero__buttons {
 		justify-content: flex-start;
 	}
+	.hero__img {
+		background-image: url("../img/hero_desktop.webp");
+		background-size: cover;
+		background-position: 35% 100%;
+	}
 }
 @media (min-width: 1023.98px) {
 	.hero {
 		padding-top: 124px;
-	}
-	.hero::before {
-		width: 108%;
-		height: 108%;
-		background-position: center bottom;
 	}
 	.hero__info {
 		max-width: 542px;
@@ -332,10 +323,6 @@ h3 {
 	}
 }
 @media (min-width: 1365.98px) {
-	.hero::before {
-		width: 100%;
-		background-size: auto;
-	}
 	.hero__title {
 		font-size: 60px;
 		line-height: 110%;
@@ -352,6 +339,10 @@ h3 {
 		height: 240px;
 		bottom: -43px;
 		right: 287px;
+	}
+	.hero__img {
+		background-size: auto;
+		background-position: center bottom;
 	}
 }
 
