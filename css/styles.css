@@ -144,7 +144,7 @@ h3 {
 	bottom: 0;
 	left: 0;
 	right: auto;
-	background-image: url("/img/hero_mobile.png");
+	background-image: url("/img/hero_mobile.webp");
 	background-repeat: no-repeat;
 	background-position: 80.5% 100%;
 }
@@ -157,7 +157,7 @@ h3 {
 	bottom: auto;
 	left: 0;
 	right: auto;
-	background-image: url("/img/hero-bg_mobile.png");
+	background-image: url("/img/hero-bg_mobile.webp");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
@@ -253,7 +253,7 @@ h3 {
 	bottom: -3%;
 	left: auto;
 	right: 36%;
-	background-image: url("/img/chess1.png");
+	background-image: url("/img/chess1.webp");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
@@ -262,12 +262,12 @@ h3 {
 @media (min-width: 767.98px) {
 	.hero::before {
 		height: 85%;
-		background-image: url("/img/hero_desktop.png");
+		background-image: url("/img/hero_desktop.webp");
 		background-size: cover;
 		background-position: 28% 100%;
 	}
 	.hero::after {
-		background-image: url("/img/hero-bg_desktop.png");
+		background-image: url("/img/hero-bg_desktop.webp");
 		background-size: cover;
 		background-position: center;
 	}
@@ -324,7 +324,7 @@ h3 {
 		bottom: 20px;
 		left: auto;
 		right: -8px;
-		background-image: url("/img/chess2.png");
+		background-image: url("/img/chess2.webp");
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100%;
@@ -512,7 +512,7 @@ h3 {
 	bottom: auto;
 	left: 0;
 	right: auto;
-	background-image: url("/img/session-bg.png");
+	background-image: url("/img/session-bg.webp");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
@@ -652,7 +652,7 @@ h3 {
 	left: 48%;
 	transform: translateX(-45%) rotate(357deg);
 	right: auto;
-	background-image: url("/img/stages-decor.png");
+	background-image: url("/img/stages-decor.webp");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
@@ -721,7 +721,7 @@ h3 {
 	bottom: auto;
 	left: 0;
 	right: auto;
-	background-image: url("/img/session-bg.png");
+	background-image: url("/img/session-bg.webp");
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
