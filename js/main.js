@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function changeSlide(e, slider) {
     let dir = 1;
-    if (e.target.closest(".arrow_left")) {
+    if (e && e.target.closest(".arrow_left")) {
       dir = -1;
     }
     slider.currentSlide += dir
@@ -142,8 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
   setSliderCounterText("#members-current", membersSlider);
 
   memberArrows.forEach((arrow) => {
-    arrow.addEventListener("click", (e) => { changeSlide(e, membersSlider), setSliderCounterText("#members-current", membersSlider) })
+    arrow.addEventListener("click", (e) => {
+      changeSlide(e, membersSlider);
+      setSliderCounterText("#members-current", membersSlider);
+    })
   });
+
+  setInterval(() => {
+    changeSlide(null, membersSlider), setSliderCounterText("#members-current", membersSlider)
+  }, 4000);
 
   window.addEventListener('resize', () => {
     if (calcSlidesPerView(membersSlider.totalSlides) !== membersSlider.slidesPerView) {
