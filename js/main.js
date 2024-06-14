@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Scroll
+  document.querySelectorAll(".scroll").forEach(elem => {
+    elem.addEventListener("click", (e) => scrollToAncor(e, elem))
+  })
+
+  function scrollToAncor(e, elem) {
+    e.preventDefault();
+    const id = elem.getAttribute("href");
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+
   // Marquee
   marquee('#ticker-hero .ticker__marquee', 0.4);
   marquee('#ticker-bottom .ticker__marquee', 0.4);
@@ -67,6 +81,19 @@ document.addEventListener("DOMContentLoaded", () => {
     dots[index].classList.add("active");
   }
 
+  function checkSliderBounds(slider, selector) {
+    if (slider.currentSlide === 0) {
+      document.querySelector(`${selector} .arrow_left`).setAttribute('disabled', "")
+      return
+    }
+    if (slider.currentSlide === slider.totalSlides - 1) {
+      document.querySelector(`${selector} .arrow_right`).setAttribute('disabled', "")
+      return
+    }
+    document.querySelector(`${selector} .arrow_right:disabled`)?.removeAttribute('disabled')
+    document.querySelector(`${selector} .arrow_left:disabled`)?.removeAttribute('disabled')
+  }
+
   // Slider stages
   const stagesArrows = document.querySelectorAll(".stages__arrow");
   const stagesPagination = document.querySelector(".stages__pagination");
@@ -76,14 +103,21 @@ document.addEventListener("DOMContentLoaded", () => {
     currentSlide: 0
   };
 
-  stagesSlider.totalSlides = window.getComputedStyle(stagesSlider.wrapper).getPropertyValue("grid-template-columns").split(" ").length;
+  function getGridColumnsCount(element) {
+    return window.getComputedStyle(element).getPropertyValue("grid-template-columns").split(" ").length;
+  }
+
+  stagesSlider.totalSlides = getGridColumnsCount(stagesSlider.wrapper);
   createSliderDots(stagesPagination, stagesSlider.totalSlides);
 
   stagesArrows.forEach((arrow) => {
     arrow.addEventListener("click", (e) => {
-      changeSlide(e, stagesSlider), changeActiveDot(stagesPagination, stagesSlider.currentSlide)
+      changeSlide(e, stagesSlider), changeActiveDot(stagesPagination, stagesSlider.currentSlide);
+      checkSliderBounds(stagesSlider, ".stages");
     })
   });
+
+  checkSliderBounds(stagesSlider, ".stages");
 
   stagesPagination.addEventListener("click", (e) => {
     if (e.target.closest(".dot")) {
@@ -118,12 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
       updateSlider(membersSlider);
       setSliderCounterText("#members-current", membersSlider);
     }
-    // if (calcSlidesPerView(stagesSlider.totalSlides) !== stagesSlider.slidesPerView) {
-    //   stagesSlider.totalSlides = window.getComputedStyle(stagesSlider.wrapper).getPropertyValue("grid-template-columns").split(" ").length;
-    //   createSliderDots(stagesPagination, stagesSlider.totalSlides);
-    // }
-
-    // console.log(stagesSlider.totalSlides);
-    // console.log(calcSlidesPerView(stagesSlider.totalSlides), stagesSlider.slidesPerView);
+    if (stagesSlider.totalSlides !== getGridColumnsCount(stagesSlider.wrapper)) {
+      document.querySelectorAll(".stages .dot").forEach(dot => {
+        dot.remove();
+      })
+      stagesSlider.totalSlides = getGridColumnsCount(stagesSlider.wrapper);
+      createSliderDots(stagesPagination, stagesSlider.totalSlides);
+    }
   });
+
 })
