@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Sliders
+  // считаем кол-во видимых слайдов (меняется в css)
   function calcSlidesPerView(total) {
     if (window.innerWidth >= 768 && window.innerWidth < 1024) {
       return total / 3
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dots[index].classList.add("active");
   }
 
+  // проверяем положение слайдов для изменения активности кнопкок (для не зацикленного слайдера)
   function checkSliderBounds(slider, selector) {
     document.querySelector(`${selector} .arrow_right:disabled`)?.removeAttribute('disabled')
     document.querySelector(`${selector} .arrow_left:disabled`)?.removeAttribute('disabled')
@@ -95,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Slider touch
+  // проверяем куда свайпает пользователь, в зависимости от этого меняем слайд
   let x1;
   function touchStart(e) {
     x1 = e.touches[0].clientX;
@@ -212,12 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   window.addEventListener('resize', () => {
+    // проверяем кол-во видимых слайдов, в зависимости от этого меняем цифры текущего слайда
     if (calcSlidesPerView(membersSlider.totalSlides) !== membersSlider.slidesPerView) {
       membersSlider.slidesPerView = calcSlidesPerView(membersSlider.totalSlides);
       membersSlider.currentSlide = 0;
       updateSlider(membersSlider);
       setSliderCounterText("#members-current", membersSlider);
     }
+    // проверяем кол-во видимых слайдов, в зависимости от этого отображаем точки пагинации
     if (stagesSlider.totalSlides !== getGridColumnsCount(stagesSlider.wrapper)) {
       document.querySelectorAll(".stages .dot").forEach(dot => {
         dot.remove();
