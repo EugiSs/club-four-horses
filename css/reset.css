@@ -4,7 +4,8 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 :root {
 	height: 100%;
@@ -28,6 +29,10 @@ body {
 	font-size: 18px;
 	line-height: 120%;
 	color: var(--mainTextColor);
+}
+body *::-moz-selection {
+	color: var(--mainTextColor);
+	background-color: var(--yellow);
 }
 body *::selection {
 	color: var(--mainTextColor);
